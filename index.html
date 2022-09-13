@@ -1,13 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOD</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div id="app">
+        <div id="login" v-if="page=='login'">
+            <div class="container">
+                <img src="https://via.placeholder.com/150" alt="logo">
+                <input type="text" placeholder="USERNAME">
+                <input type="password" placeholder="********">
+                <button type="submit" @click="page='home'">Login</button>
+                <a href="#">Create Account?</a>
+            </div>
+        </div>
+
+        <div id="home" v-if="page=='home'">
+            <div class="container">
+                <div class="notification">
+                    {{noti[Math.floor(Math.random()*noti.length)]}}
+                </div>
+                <div class="header">
+                    <input @keyup.enter="postFn()" v-model="post" type="text" placeholder="จดอะไรซักหน่อยสิ . . .">
+                    <ion-icon name="camera-outline"></ion-icon>
+                </div>
+                <div class="diary">
+                    <div class="card" v-for="item in posts.slice().reverse()">
+                        <img v-if="item.img" :src="item.img" alt="">
+                        <p class="content-text">{{item.text}}</p>
+                        <p class="time">{{item.time}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-icon" @click="page='chat'">
+                <ion-icon name="chatbubble-ellipses"></ion-icon>
+            </div>
+        </div>
+
+        <div id="chat" v-if="page=='chat'">
+            <div class="container">
+                <ion-icon name="arrow-back" @click="page='home'" class="back-icon"></ion-icon>
+                <hr>
+                <div class="chat left">
+                    <img src="https://via.placeholder.com/150" alt="profile">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, mollitia?</p>
+                </div>
+
+                <div class="chat right">
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <img src="https://via.placeholder.com/150" alt="profile">
+                </div>
+
+                <div class="chat left">
+                    <img src="https://via.placeholder.com/150" alt="profile">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+                </div>
+
+                <div class="chat right">
+                    <p>Lorem, ipsum.</p>
+                    <img src="https://via.placeholder.com/150" alt="profile">
+                </div>
+
+                <div class="msg">
+                    <input type="text">
+                    <ion-icon name="paper-plane-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
 </html>
